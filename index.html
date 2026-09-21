@@ -129,6 +129,18 @@
   @media (max-width:430px){
     h1{font-size:24px;}.qtext{font-size:18px;}.facts{gap:6px;}.fact b{font-size:16px;}.opt{font-size:15px;padding:13px;}
   }
+  .namebox{margin:2px 0 18px;}
+  .namebox label{display:block;font-weight:800;font-size:15px;color:var(--ink);margin-bottom:9px;letter-spacing:.3px;}
+  .namebox label .req{color:var(--bad-ink);margin-left:2px;}
+  .namebox input{width:100%;font-family:inherit;font-size:17px;font-weight:700;color:var(--ink);
+    border:2px solid var(--card-line);border-radius:15px;padding:15px 16px;background:#f7fafc;outline:none;
+    transition:border-color .15s,box-shadow .15s,background .15s;}
+  .namebox input:focus{border-color:var(--green);box-shadow:0 0 0 4px rgba(47,143,91,.16);background:#fff;}
+  .namebox input::placeholder{color:#9fb2c0;font-weight:500;}
+  .namebox input.bad{border-color:var(--bad-line);background:var(--bad);}
+  .namebox .hint{font-size:12.5px;color:var(--ink-soft);margin-top:8px;line-height:1.55;}
+  .namebox .err{display:none;font-size:13.5px;color:var(--bad-ink);font-weight:800;margin-top:8px;}
+  .namebox .err.show{display:block;}
 </style>
 </head>
 <body>
@@ -171,7 +183,13 @@
       <li><i>🧠</i>進階題多是情境判斷、辨析與「下列何者錯誤」,要看清楚再選。</li>
       <li><i>💡</i>答錯沒關係,會告訴你正確答案和原因。</li>
     </ul>
-    <button class="btn" onclick="startGame()">開始闖關 🚀</button>
+    <div class="namebox">
+      <label for="natName">先取一個你的<b style="color:var(--green-d)">自然名</b><span class="req">*</span></label>
+      <input id="natName" type="text" maxlength="12" autocomplete="off" placeholder="例如：奔鹿、台灣獼猴、油桐花…" onkeydown="if(event.key==='Enter')beginGame()" oninput="document.getElementById('natErr').classList.remove('show');this.classList.remove('bad')">
+      <div class="hint">🌿 荒野的傳統——挑一種你喜歡的動物、植物或自然元素當名字。</div>
+      <div class="err" id="natErr">請先填上你的自然名，才能出發喔！</div>
+    </div>
+    <button class="btn" onclick="beginGame()">開始闖關 🚀</button>
   </div>
 
   <div class="panel" id="quizScreen" style="display:none">
@@ -264,7 +282,7 @@ const QUESTIONS = [
 const KEYS=["A","B","C","D"];
 const SUMMIT=3422;
 
-let order=[], idx=0, correct=0, streak=0, answered=false, results=[];
+let order=[], idx=0, correct=0, streak=0, answered=false, results=[], playerName='';
 let trailLen=0, hiker, trailDone;
 
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
@@ -285,6 +303,19 @@ function placeHiker(frac){
   hiker.setAttribute('transform','translate('+p.x+','+(p.y-2)+')');
   trailDone.style.strokeDashoffset=trailLen*(1-frac);
   document.getElementById('elevNum').textContent=Math.round(SUMMIT*frac).toLocaleString()+" m";
+}
+
+function beginGame(){
+  const inp=document.getElementById('natName');
+  const name=(inp.value||'').trim();
+  if(!name){
+    document.getElementById('natErr').classList.add('show');
+    inp.classList.add('bad','shake');inp.focus();
+    setTimeout(()=>inp.classList.remove('shake'),450);
+    return;
+  }
+  playerName=name;
+  startGame();
 }
 
 function startGame(){
@@ -366,7 +397,7 @@ function showResult(){
   else{em="🥾";title="先在山腳把基本功練好";sub="別急著攻頂，把下面的重點多看幾次，再挑戰一次吧!";}
   document.getElementById('rEmoji').textContent=em;
   document.getElementById('rTitle').textContent=title;
-  document.getElementById('rSub').textContent=sub;
+  document.getElementById('rSub').textContent=(playerName?playerName+"，":"")+sub;
   const misses=results.filter(r=>!r.ok);
   const list=document.getElementById('reviewList');
   document.getElementById('reviewTitle').textContent = misses.length ? "📋 這幾題再看一眼" : "📋 全部答對!複習一下重點";
