@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>登峰造極 · 行前安全闖關(進階)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky-top:#8ec5e8;--sky-bot:#e9f4fb;--ink:#20323f;--ink-soft:#4c6274;
+    --card:#ffffff;--card-line:#e4ecf2;--green:#2f8f5b;--green-d:#227044;
+    --orange:#e07a2f;--orange-d:#c2621d;--blue:#2f7fc4;
+    --good:#e8f7ee;--good-line:#8fd9ab;--good-ink:#1c7a45;
+    --bad:#fdecea;--bad-line:#f2b3aa;--bad-ink:#c0392b;
+    --shadow:0 18px 40px -18px rgba(20,50,70,.45);--radius:22px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --sky-top:#1c2f42;--sky-bot:#243748;--ink:#eaf2f8;--ink-soft:#a8bccb;
+      --card:#1c2a36;--card-line:#33475a;--good:#173a29;--good-line:#2f7a4f;
+      --good-ink:#8ee6ae;--bad:#3d2320;--bad-line:#8a4a41;--bad-ink:#ff9b8c;
+      --shadow:0 18px 44px -18px rgba(0,0,0,.6);
+    }
+  }
+  :root[data-theme="dark"]{
+    --sky-top:#1c2f42;--sky-bot:#243748;--ink:#eaf2f8;--ink-soft:#a8bccb;
+    --card:#1c2a36;--card-line:#33475a;--good:#173a29;--good-line:#2f7a4f;
+    --good-ink:#8ee6ae;--bad:#3d2320;--bad-line:#8a4a41;--bad-ink:#ff9b8c;
+    --shadow:0 18px 44px -18px rgba(0,0,0,.6);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%;}
+  body{
+    margin:0;min-height:100%;
+    font-family:"Noto Sans TC",system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;
+    color:var(--ink);
+    background:linear-gradient(180deg,var(--sky-top) 0%,var(--sky-bot) 60%);
+    background-attachment:fixed;
+    padding:env(safe-area-inset-top,0px) 0 calc(env(safe-area-inset-bottom,0px) + 24px);
+  }
+  .stage{width:100%;max-width:660px;margin:0 auto;padding:18px 16px 0;}
+  .hero{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,0));
+    border-radius:var(--radius);padding:6px 8px 0;margin-bottom:14px;}
+  .hero svg{display:block;width:100%;height:auto;overflow:visible;}
+  #hiker{transition:transform .7s cubic-bezier(.22,.68,.35,1.02);}
+  #hiker text{font-size:26px;}
+  .trail-done{transition:stroke-dashoffset .7s cubic-bezier(.22,.68,.35,1.02);}
+  .elev{position:absolute;top:10px;left:14px;background:rgba(255,255,255,.82);color:#20323f;
+    border-radius:14px;padding:6px 11px;line-height:1;box-shadow:0 6px 14px -8px rgba(0,0,0,.4);backdrop-filter:blur(4px);}
+  .elev b{font-family:"Baloo 2",sans-serif;font-size:20px;display:block;color:var(--green-d);}
+  .elev span{font-size:11px;color:#5b7285;}
+  .panel{background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius);
+    box-shadow:var(--shadow);padding:22px 20px 24px;animation:rise .45s ease;}
+  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+  .badge{display:inline-flex;align-items:center;gap:6px;background:var(--good);color:var(--good-ink);
+    border:1px solid var(--good-line);font-weight:700;font-size:13px;border-radius:999px;padding:5px 13px;margin-bottom:12px;}
+  h1{font-size:27px;line-height:1.25;margin:2px 0 8px;font-weight:900;letter-spacing:.5px;}
+  h1 .sub{display:block;font-size:15px;font-weight:700;color:var(--orange-d);margin-top:6px;letter-spacing:1px;}
+  .lead{color:var(--ink-soft);font-size:15px;line-height:1.75;margin:0 0 18px;}
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 20px;}
+  .fact{background:linear-gradient(180deg,rgba(47,143,91,.09),rgba(47,143,91,.03));
+    border:1px solid var(--card-line);border-radius:14px;padding:10px 6px;text-align:center;}
+  .fact b{display:block;font-family:"Baloo 2",sans-serif;font-size:19px;color:var(--green-d);line-height:1.1;}
+  .fact span{font-size:11px;color:var(--ink-soft);}
+  .rules{list-style:none;padding:0;margin:0 0 20px;}
+  .rules li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:var(--ink-soft);padding:6px 0;line-height:1.55;}
+  .rules li i{font-style:normal;font-size:18px;flex:none;}
+  .btn{display:block;width:100%;border:none;cursor:pointer;font-family:inherit;font-weight:800;font-size:18px;
+    letter-spacing:1px;color:#fff;border-radius:16px;padding:16px;
+    background:linear-gradient(180deg,var(--green),var(--green-d));box-shadow:0 12px 22px -12px rgba(34,112,68,.9);
+    transition:transform .12s ease,box-shadow .12s ease,filter .12s ease;}
+  .btn:hover{filter:brightness(1.05);}
+  .btn:active{transform:translateY(2px);box-shadow:0 6px 12px -10px rgba(34,112,68,.9);}
+  .btn.orange{background:linear-gradient(180deg,var(--orange),var(--orange-d));box-shadow:0 12px 22px -12px rgba(194,98,29,.9);}
+  .qtop{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .qnum{font-weight:800;font-size:14px;color:var(--ink-soft);}
+  .qnum b{font-family:"Baloo 2",sans-serif;color:var(--orange-d);font-size:19px;}
+  .streak{font-size:13px;font-weight:700;color:var(--orange-d);opacity:0;transition:opacity .3s;}
+  .streak.on{opacity:1;}
+  .pbar{height:8px;border-radius:999px;background:var(--card-line);overflow:hidden;margin-bottom:18px;}
+  .pbar i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--green),var(--orange));transition:width .5s ease;}
+  .qtext{font-size:20px;font-weight:800;line-height:1.55;margin:0 0 18px;}
+  .opts{display:flex;flex-direction:column;gap:11px;}
+  .opt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;cursor:pointer;
+    font-family:inherit;font-size:16px;font-weight:600;color:var(--ink);line-height:1.45;
+    background:var(--card);border:2px solid var(--card-line);border-radius:15px;padding:15px;transition:border-color .15s,background .15s,transform .1s;}
+  .opt:hover{border-color:var(--green);}
+  .opt:active{transform:scale(.99);}
+  .opt .key{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;
+    font-family:"Baloo 2",sans-serif;font-weight:800;font-size:15px;background:var(--card-line);color:var(--ink-soft);transition:.15s;}
+  .opt.correct{border-color:var(--good-line);background:var(--good);}
+  .opt.correct .key{background:var(--green);color:#fff;}
+  .opt.wrong{border-color:var(--bad-line);background:var(--bad);}
+  .opt.wrong .key{background:var(--bad-ink);color:#fff;}
+  .opt:disabled{cursor:default;}
+  .opt.dim{opacity:.5;}
+  .shake{animation:shake .4s;}
+  @keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}40%{transform:translateX(7px);}60%{transform:translateX(-5px);}80%{transform:translateX(5px);}}
+  .fb{margin-top:16px;border-radius:15px;padding:14px 15px;font-size:14.5px;line-height:1.65;display:none;animation:rise .3s ease;}
+  .fb.show{display:block;}
+  .fb.ok{background:var(--good);border:1px solid var(--good-line);color:var(--good-ink);}
+  .fb.no{background:var(--bad);border:1px solid var(--bad-line);color:var(--bad-ink);}
+  .fb .tag{font-weight:900;font-size:15px;display:block;margin-bottom:3px;}
+  .fb .exp{color:var(--ink);opacity:.92;}
+  .next{margin-top:16px;display:none;}
+  .next.show{display:block;}
+  .rhead{text-align:center;margin-bottom:6px;}
+  .rhead .em{font-size:52px;line-height:1;}
+  .rtitle{font-size:25px;font-weight:900;margin:8px 0 2px;text-align:center;}
+  .rsub{color:var(--ink-soft);font-size:15px;margin-bottom:18px;text-align:center;line-height:1.6;}
+  .score{display:flex;align-items:baseline;justify-content:center;gap:6px;
+    background:linear-gradient(180deg,rgba(224,122,47,.12),rgba(224,122,47,.04));
+    border:1px solid var(--card-line);border-radius:18px;padding:16px;margin-bottom:8px;}
+  .score .big{font-family:"Baloo 2",sans-serif;font-size:46px;font-weight:800;color:var(--orange-d);line-height:1;}
+  .score .tot{font-size:20px;color:var(--ink-soft);font-weight:700;}
+  .stars{text-align:center;font-size:26px;letter-spacing:4px;margin:4px 0 16px;}
+  .review{margin:6px 0 18px;}
+  .review h3{font-size:15px;margin:0 0 10px;color:var(--ink-soft);font-weight:800;letter-spacing:.5px;}
+  .ritem{display:flex;gap:10px;font-size:13.5px;line-height:1.55;padding:8px 0;border-top:1px dashed var(--card-line);}
+  .ritem i{font-style:normal;flex:none;}
+  .ritem.miss{color:var(--ink);}
+  .ritem.hit{color:var(--ink-soft);}
+  .btnrow{display:flex;flex-direction:column;gap:10px;}
+  .foot{text-align:center;color:var(--ink-soft);font-size:12px;opacity:.8;margin:18px 6px 4px;line-height:1.6;}
+  .confetti{position:fixed;top:-30px;font-size:20px;pointer-events:none;animation:fall linear forwards;z-index:5;}
+  @keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.9;}}
+  @media (max-width:430px){
+    h1{font-size:24px;}.qtext{font-size:18px;}.facts{gap:6px;}.fact b{font-size:16px;}.opt{font-size:15px;padding:13px;}
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="hero">
+    <div class="elev"><b id="elevNum">0 m</b><span>目前海拔 · 山頂 3,422m</span></div>
+    <svg viewBox="0 0 400 210" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0,210 L60,120 L120,165 L190,90 L250,150 L320,80 L400,150 L400,210 Z" fill="#bcd8ec" opacity=".55"/>
+      <path d="M0,210 L70,150 L150,175 L230,95 L300,45 L360,120 L400,160 L400,210 Z" fill="#5aa06d"/>
+      <path d="M0,210 L70,150 L150,175 L230,95 L300,45 L360,120 L400,160 L400,210 Z" fill="url(#g1)" opacity=".9"/>
+      <path d="M300,45 L283,68 L292,66 L299,74 L307,64 L316,70 L300,45 Z" fill="#ffffff" opacity=".95"/>
+      <path id="trail" d="M40,196 C95,190 78,150 132,150 C186,150 172,120 214,112 C256,104 250,72 300,50"
+            fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" opacity=".45" stroke-dasharray="1 9"/>
+      <path id="trailDone" class="trail-done" d="M40,196 C95,190 78,150 132,150 C186,150 172,120 214,112 C256,104 250,72 300,50"
+            fill="none" stroke="#e07a2f" stroke-width="5" stroke-linecap="round"/>
+      <g transform="translate(300,50)">
+        <line x1="0" y1="0" x2="0" y2="-22" stroke="#7a4a1e" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M0,-22 L15,-17 L0,-12 Z" fill="#e23b3b"/>
+      </g>
+      <g id="hiker"><text text-anchor="middle" dominant-baseline="central">🥾</text></g>
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#6fb582"/><stop offset="1" stop-color="#3d8256"/>
+      </linearGradient></defs>
+    </svg>
+  </div>
+
+  <div class="panel" id="startScreen">
+    <span class="badge">🏔️ 荒野親子團 · 中一奔鹿</span>
+    <h1>走進山的懷抱<span class="sub">行前安全知識闖關 · 進階 20 關</span></h1>
+    <p class="lead">出發前動動腦!這是進階版,題目要靠判斷和思考,不能只靠背。答對就往上爬一段,把 20 關全部答對,就能登上 <b>合歡北峰 3,422m</b>。準備好了嗎?</p>
+    <div class="facts">
+      <div class="fact"><b>3,422m</b><span>海拔高度</span></div>
+      <div class="fact"><b>2 km</b><span>單程距離</span></div>
+      <div class="fact"><b>450m</b><span>總爬升</span></div>
+      <div class="fact"><b>~10℃</b><span>清晨氣溫</span></div>
+    </div>
+    <ul class="rules">
+      <li><i>🎯</i>安全第一、量力而為——「攻頂」永遠排在「平安」後面。</li>
+      <li><i>🧠</i>進階題多是情境判斷、辨析與「下列何者錯誤」,要看清楚再選。</li>
+      <li><i>💡</i>答錯沒關係,會告訴你正確答案和原因。</li>
+    </ul>
+    <button class="btn" onclick="startGame()">開始闖關 🚀</button>
+  </div>
+
+  <div class="panel" id="quizScreen" style="display:none">
+    <div class="qtop">
+      <span class="qnum">第 <b id="qCur">1</b> 關 / 共 20 關</span>
+      <span class="streak" id="streak">🔥 連續答對 <b id="streakN">0</b></span>
+    </div>
+    <div class="pbar"><i id="pfill"></i></div>
+    <p class="qtext" id="qText"></p>
+    <div class="opts" id="opts"></div>
+    <div class="fb" id="fb"><span class="tag" id="fbTag"></span><span class="exp" id="fbExp"></span></div>
+    <button class="btn next orange" id="nextBtn" onclick="nextQ()">下一關 →</button>
+  </div>
+
+  <div class="panel" id="resultScreen" style="display:none">
+    <div class="rhead"><div class="em" id="rEmoji">🏔️</div><div class="rtitle" id="rTitle"></div></div>
+    <div class="rsub" id="rSub"></div>
+    <div class="score"><span class="big" id="rScore">0</span><span class="tot">/ 20 題答對</span></div>
+    <div class="stars" id="rStars"></div>
+    <div class="review"><h3 id="reviewTitle">📋 再看一眼這些重點</h3><div id="reviewList"></div></div>
+    <div class="btnrow"><button class="btn" onclick="restart()">再挑戰一次 🔁</button></div>
+  </div>
+
+  <p class="foot">登峰造極 · 合歡北峰 3,422m ｜ 平安上山 · 快樂下山<br>方向往下 · 不脫隊 · 有不適就下降 · 全程回報</p>
+</div>
+
+<script>
+const QUESTIONS = [
+  {q:"關於戶外活動的「風險」，下列觀念最正確的是？",
+   o:["只要夠小心，風險就能完全消除","風險無法完全消除，重點是事前充分準備、預防以降低風險","風險是運氣問題，沒辦法事先判斷","反正出事再救援就好"],a:1,
+   e:"戶外一定有風險，無法「消除」但能「準備」。與其事後救援，不如在規劃階段就把危害壓到最低。"},
+  {q:"關於高山症，下列敘述何者正確？",
+   o:["只有體弱或年紀大的人才會得","只要體力好、常運動就不會發生","海拔超過 3,000 公尺，任何人都可能發生，和體力好壞無關","只要走慢一點就絕對不會得"],a:2,
+   e:"高山症和體力、年齡、經驗都無關——海拔超過 3,000m，人人都有風險。所以放慢、補水、不憋氣、及早反映，每個人都要做。"},
+  {q:"為什麼在高山上一定要戴太陽眼鏡、做好防曬？",
+   o:["只是為了拍照好看","高海拔紫外線特別強，強光會傷害眼睛和皮膚","山上比較熱，怕曬黑","沒什麼特別原因，帶了比較安心"],a:1,
+   e:"海拔越高、空氣越稀薄，紫外線越強，加上地面反光，容易曬傷皮膚、甚至傷到眼睛。太陽眼鏡與防曬都不能省。"},
+  {q:"個人裝備清單裡都會要求帶一個「哨子」，主要目的是什麼？",
+   o:["無聊時吹好玩","迷路、受困或受傷時求救——比大喊省力，聲音也傳得更遠","用來指揮隊伍前進","專門用來趕走野生動物"],a:1,
+   e:"哨子是求救神器：受困、迷路、受傷無法行動時，吹哨比大喊省力，聲音也傳得更遠、更容易被聽見。"},
+  {q:"關於山上的「行動糧」（隨手能吃的糖果、堅果、能量棒），正確的觀念是？",
+   o:["等很餓、很累了再一次吃飽","少量多次、隨時補充，維持體力和血糖，不要等餓了才吃","帶越少越好，減輕重量最重要","行動糧沒什麼用，喝水就好"],a:1,
+   e:"山上消耗大，行動糧要「少量多次」隨時補充，維持體力與血糖穩定。等到很餓、沒力才吃，往往已經來不及。"},
+  {q:"依「無痕山林」原則，在山上產生的垃圾（含果皮、廚餘）該怎麼處理？",
+   o:["埋進土裡讓它自然分解","全部收好帶下山，連果皮、廚餘也不留","丟進樹叢反正會爛掉","集中燒掉最乾淨"],a:1,
+   e:"無痕山林：所有垃圾（包含果皮、廚餘）一律帶下山。果皮廚餘在高山不易分解，還會引來動物、改變牠們的習性。"},
+  {q:"確認隊友疑似高山症後，關於「移動方向」，唯一正確的做法是？",
+   o:["先原地休息、觀察一小時再決定","立即下降，不等待、也不上升","撐到山頂再一起下山","讓他自己慢慢走上去"],a:1,
+   e:"高山症唯一有效的處置就是「立即下降」——不等待、不上升，同步回報並視情況求援。"},
+  {q:"關於高山症的「預防」，下列敘述「錯誤」的是？",
+   o:["放慢步調、少量多次補水","不憋氣、規律呼吸","覺得不舒服先忍著，不要拖累大家","有不適要及早向大人反映"],a:2,
+   e:"「忍著不說」最危險。高山症越早發現越好處理，一定要及早反映。"},
+  {q:"高山症在孩子身上「不一定講得出來」。大人最該主動留意的是哪一種情況？",
+   o:["一直講話、活蹦亂跳的孩子","突然變安靜、變慢、想睡或哭鬧的孩子","只要沒喊頭痛就代表沒事","走在隊伍最前面的孩子"],a:1,
+   e:"孩子未必會描述不適。變安靜、變慢、想睡、哭鬧都可能是警訊，大人要主動觀察、主動詢問。"},
+  {q:"一個孩子「走不動了，但意識清楚、狀況穩定」，最恰當的處置是？",
+   o:["鼓勵他咬牙撐到山頂","不勉強攻頂，由 1 位大人護送回管理站、交給留守大人並全程回報","讓他自己在原地等大家攻頂回來","把他的背包減重後繼續往上"],a:1,
+   e:"這屬於「無法續行但穩定」——不勉強攻頂，由機動大人護送回管理站，交給留守大人，全程對講機回報。"},
+  {q:"孩子在途中扭傷、跌倒受了傷，下列處置最正確的是？",
+   o:["忍一下繼續往上，免得掃興","以急救包處理；可走則護送下撤，不能走則多人協助並回報，嚴重時撥 119","放著讓傷自己好","立刻自己揹著孩子用跑的下山"],a:1,
+   e:"先用急救包處理；能走就護送下撤、不能走就多人協助並回報總指揮，嚴重時撥 119。"},
+  {q:"洋蔥式三層穿法各有任務。下列「配對」哪一個是錯的？",
+   o:["第一層 排汗層——吸濕排汗、貼身","第二層 保暖層——刷毛或羽絨、留住體溫","第三層 防風防雨層——擋風擋雨的外套","第一層 排汗層——負責防風防雨"],a:3,
+   e:"排汗層是貼身、把汗帶離皮膚；「防風防雨」是最外層的任務。三層分工不能搞混。"},
+  {q:"行進中身體會發熱流汗。關於穿著，最正確的做法是？",
+   o:["全程三層都穿好，流汗才涼快","行進間可只穿排汗層，一停下休息就立刻加保暖層","覺得冷就把防風外套穿在最貼身那一層","為了輕便，休息時把外套脫掉吹風"],a:1,
+   e:"行進會發熱，可只穿排汗層；一停下休息體溫下降快，要「立刻」加保暖層，避免著涼失溫。"},
+  {q:"「全腳掌著地、步速均勻、善用休息步」——這是上坡還是下坡的省力技巧？",
+   o:["上坡","下坡","兩者都一樣","只適用平路"],a:0,
+   e:"這些是上坡技巧；下坡則要重心放低、坐後腳、前腳掌著地、腳尖迂迴、看好踏點。"},
+  {q:"關於「下坡」，下列做法正確的是？（提示：下坡最容易受傷）",
+   o:["大步快走，趁下坡多趕一點路","身體向後仰、用腳跟用力煞車","重心放低、坐後腳、看好每個踏點、善用登山杖","邊走邊看風景，不用特別留意"],a:2,
+   e:"下坡最容易受傷。要放慢、重心放低、坐後腳、前腳掌著地、看好踏點、善用登山杖，特別保護膝蓋。"},
+  {q:"隊伍行進時，關於自己該走的「位置」，下列何者正確？",
+   o:["體力好就超越前導、幫大家探路","走在「前導與壓隊之間」，不超越前導、不脫隊","落在壓隊後面拍照一下沒關係","想快就快、想慢就慢，自由行動"],a:1,
+   e:"全隊要走在前導（嚮導）與壓隊之間，不超越前導、不脫節、不落單。"},
+  {q:"在山徑上與人相遇，正確的「禮讓」原則是？",
+   o:["上坡的人要讓下坡的人","下坡讓上坡；同方向時，慢行者禮讓快行者","誰先到誰先走，不用禮讓","快行者一律要禮讓慢行者"],a:1,
+   e:"下坡讓上坡（上坡較費力）；同方向行進時，慢行者禮讓快行者。"},
+  {q:"萬一和隊伍走散、找不到路，最關鍵的第一件事是？",
+   o:["趕快沿原路往回衝，追上大家","停下來、留在原地，不驚慌、不亂走","往有水聲的溪谷下切，沿溪一定能出去","大聲哭喊直到有人來為止"],a:1,
+   e:"記住 STOP——先「停下、留原地」不亂走，而且「勿下切溪谷」；找可遮風避雨處、冷靜等待救援。"},
+  {q:"關於待援的「333 原則」，下列敘述正確的是？",
+   o:["人沒有食物最多只能撐 3 天","失溫大約只能撐 3 小時，所以「保暖與遮蔽」是待援第一優先","沒有水可以撐 3 週","三個數字沒有先後，不影響處置"],a:1,
+   e:"333＝失溫約 3 小時、沒水約 3 天、沒食物約 3 週。失溫最快致命，所以保暖與找遮蔽是待援的第一優先。"},
+  {q:"如果要用一句話總結整場安全講座，最貼近的核心精神是？",
+   o:["一定要攻頂，才不虛此行","速度越快、越早下山就越安全","安全第一、量力而為，「平安」永遠排在「攻頂」之前","只要跟緊大人，就完全不會有風險"],a:2,
+   e:"這場講座的核心：安全第一、量力而為。攻頂永遠排在平安之後——把每個人平安帶上山、平安帶回家。"}
+];
+const KEYS=["A","B","C","D"];
+const SUMMIT=3422;
+
+let order=[], idx=0, correct=0, streak=0, answered=false, results=[];
+let trailLen=0, hiker, trailDone;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+window.addEventListener('load',()=>{
+  const trail=document.getElementById('trail');
+  trailLen=trail.getTotalLength();
+  trailDone=document.getElementById('trailDone');
+  trailDone.style.strokeDasharray=trailLen;
+  trailDone.style.strokeDashoffset=trailLen;
+  hiker=document.getElementById('hiker');
+  placeHiker(0);
+});
+
+function placeHiker(frac){
+  if(!trailLen) return;
+  const p=document.getElementById('trail').getPointAtLength(trailLen*frac);
+  hiker.setAttribute('transform','translate('+p.x+','+(p.y-2)+')');
+  trailDone.style.strokeDashoffset=trailLen*(1-frac);
+  document.getElementById('elevNum').textContent=Math.round(SUMMIT*frac).toLocaleString()+" m";
+}
+
+function startGame(){
+  order=shuffle(QUESTIONS.map((_,i)=>i));
+  idx=0;correct=0;streak=0;results=[];
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='none';
+  document.getElementById('quizScreen').style.display='block';
+  placeHiker(0);renderQ();
+}
+
+function renderQ(){
+  answered=false;
+  const q=QUESTIONS[order[idx]];
+  document.getElementById('qCur').textContent=idx+1;
+  document.getElementById('pfill').style.width=(idx/QUESTIONS.length*100)+"%";
+  document.getElementById('qText').textContent=q.q;
+  const st=document.getElementById('streak');
+  st.classList.toggle('on',streak>=2);
+  document.getElementById('streakN').textContent=streak;
+  const opts=q.o.map((t,i)=>({t,correct:i===q.a}));
+  shuffle(opts);
+  const box=document.getElementById('opts');box.innerHTML='';
+  opts.forEach((op,i)=>{
+    const b=document.createElement('button');b.className='opt';
+    b.innerHTML='<span class="key">'+KEYS[i]+'</span><span>'+op.t+'</span>';
+    b.onclick=()=>choose(b,op.correct);box.appendChild(b);
+  });
+  document.getElementById('fb').className='fb';
+  document.getElementById('nextBtn').classList.remove('show');
+  document.getElementById('nextBtn').textContent = idx===QUESTIONS.length-1 ? "看看爬到哪 🏁" : "下一關 →";
+}
+
+function choose(btn,isRight){
+  if(answered) return;answered=true;
+  const q=QUESTIONS[order[idx]];
+  [...document.querySelectorAll('.opt')].forEach(b=>{b.disabled=true;
+    const t=b.querySelector('span:last-child').textContent;
+    if(t===q.o[q.a]) b.classList.add('correct'); else b.classList.add('dim');
+  });
+  const fb=document.getElementById('fb');
+  if(isRight){
+    correct++;streak++;btn.classList.remove('dim');
+    fb.className='fb ok show';
+    document.getElementById('fbTag').textContent=pick(["答對了! 🎉","太棒了! ✅","沒錯，就是這個! 💪","漂亮! 👏","判斷正確! 🧠"]);
+  }else{
+    streak=0;btn.classList.remove('dim');btn.classList.add('wrong','shake');
+    fb.className='fb no show';
+    document.getElementById('fbTag').textContent="這題要記一下 📌";
+  }
+  document.getElementById('fbExp').textContent=q.e;
+  results.push({q:q.q,e:q.e,ok:isRight});
+  placeHiker(correct/QUESTIONS.length);
+  document.getElementById('pfill').style.width=((idx+1)/QUESTIONS.length*100)+"%";
+  const nb=document.getElementById('nextBtn');nb.classList.add('show');
+  nb.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+function nextQ(){
+  idx++;
+  if(idx>=QUESTIONS.length){showResult();return;}
+  renderQ();
+  document.getElementById('quizScreen').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function showResult(){
+  document.getElementById('quizScreen').style.display='none';
+  document.getElementById('resultScreen').style.display='block';
+  placeHiker(correct/QUESTIONS.length);
+  document.getElementById('rScore').textContent=correct;
+  const pct=correct/QUESTIONS.length;
+  const fullStars=Math.round(pct*5);
+  document.getElementById('rStars').textContent="★★★★★".slice(0,fullStars)+"☆☆☆☆☆".slice(0,5-fullStars);
+  let em,title,sub;
+  if(correct===20){em="🏔️🚩";title="登頂成功!合歡北峰 3,422m";sub="全部答對，判斷力一流，你已經是登山安全高手，可以安心出發啦!";}
+  else if(pct>=0.8){em="🧗";title="就快登頂了!";sub="觀念很紮實，把下面幾個重點補起來就滿分。";}
+  else if(pct>=0.6){em="⛰️";title="穩穩爬到半山腰";sub="基礎不錯!再複習一下辨析與處置的題目，會更完整。";}
+  else{em="🥾";title="先在山腳把基本功練好";sub="別急著攻頂，把下面的重點多看幾次，再挑戰一次吧!";}
+  document.getElementById('rEmoji').textContent=em;
+  document.getElementById('rTitle').textContent=title;
+  document.getElementById('rSub').textContent=sub;
+  const misses=results.filter(r=>!r.ok);
+  const list=document.getElementById('reviewList');
+  document.getElementById('reviewTitle').textContent = misses.length ? "📋 這幾題再看一眼" : "📋 全部答對!複習一下重點";
+  (misses.length?misses:results.slice(0,5)).forEach(r=>{
+    const d=document.createElement('div');d.className='ritem '+(r.ok?'hit':'miss');
+    d.innerHTML='<i>'+(r.ok?'✅':'📌')+'</i><span><b>'+r.q+'</b><br>'+r.e+'</span>';
+    list.appendChild(d);
+  });
+  if(pct>=0.8) confetti();
+  document.querySelector('.stage').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function restart(){document.getElementById('reviewList').innerHTML='';startGame();document.querySelector('.stage').scrollIntoView({behavior:'smooth'});}
+
+function confetti(){
+  const em=["🎉","🎊","⭐","🏔️","🥾","🚩","✨"];
+  for(let i=0;i<28;i++){
+    const s=document.createElement('div');s.className='confetti';
+    s.textContent=em[Math.floor(Math.random()*em.length)];
+    s.style.left=Math.random()*100+'vw';
+    s.style.animationDuration=(2+Math.random()*2.5)+'s';
+    s.style.animationDelay=(Math.random()*0.8)+'s';
+    s.style.fontSize=(16+Math.random()*16)+'px';
+    document.body.appendChild(s);setTimeout(()=>s.remove(),5000);
+  }
+}
+</script>
+</body>
+</html>
